@@ -55,3 +55,28 @@ error: branch 'hoge3?[m' not found. # いけない！
 
 そもそも変な文字列入るのがおかしいからなんとかしたい  
 おわり
+
+## 追記
+
+正規表現でがんばるパターン
+
+```
+‣ 🐬 git branch | grep -oE '[a-zA-Z0-9_./]{2,}'
+develop/foo
+develop/bar
+develop/baz
+hoge1
+hoge2
+hoge3
+32mmaster
+‣ 🐽 git branch | grep -oE '[a-zA-Z0-9_./]{2,}' | grep hoge # 泥臭い…
+hoge1
+hoge2
+hoge3
+‣ 🐸 git branch | grep -oE '[a-zA-Z0-9_./]{2,}' | grep hoge | xargs git branch -d
+Deleted branch hoge1 (was xxxxxxxxx).
+Deleted branch hoge2 (was xxxxxxxxx).
+Deleted branch hoge3 (was xxxxxxxxx).
+```
+
+おわり
